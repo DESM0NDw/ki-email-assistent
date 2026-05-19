@@ -112,24 +112,24 @@
     </div>
   </header>
 
-  <main>
-
-    <!-- Automation flow -->
-    <div class="flow-bar">
-      <p class="flow-label">So läuft die Automation:</p>
-      <div class="flow-steps">
-        {#each STEPS as step, i}
-          <div class="flow-step {activeStep === i ? 'active' : ''} {activeStep > i ? 'done' : ''}">
-            <span class="step-icon">{step.icon}</span>
-            <span class="step-label">{step.label}</span>
-          </div>
-          {#if i < STEPS.length - 1}
-            <div class="flow-arrow {activeStep > i ? 'done' : ''}">→</div>
-          {/if}
-        {/each}
-      </div>
-      <p class="flow-hint">In der echten Integration läuft dieser Prozess vollautomatisch im Hintergrund — keine manuelle Eingabe nötig.</p>
+  <!-- Automation flow -->
+  <div class="flow-bar">
+    <p class="flow-label">So läuft die Automation:</p>
+    <div class="flow-steps">
+      {#each STEPS as step, i}
+        <div class="flow-step {activeStep === i ? 'active' : ''} {activeStep > i ? 'done' : ''}">
+          <span class="step-icon">{step.icon}</span>
+          <span class="step-label">{step.label}</span>
+        </div>
+        {#if i < STEPS.length - 1}
+          <div class="flow-arrow {activeStep > i ? 'done' : ''}">→</div>
+        {/if}
+      {/each}
     </div>
+    <p class="flow-hint">In der echten Integration läuft dieser Prozess vollautomatisch im Hintergrund — keine manuelle Eingabe nötig.</p>
+  </div>
+
+  <main>
 
     <div class="content">
 
@@ -380,11 +380,11 @@
   /* Flow bar */
   .flow-bar {
     background: #1e2d42; border-bottom: 1px solid #243447;
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem 1.25rem; display: flex; flex-direction: column; align-items: center;
   }
   .flow-label { font-size: 0.75rem; color: #b0bfcc; margin-bottom: 0.5rem; }
   .flow-steps {
-    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center;
   }
   .flow-step {
     display: flex; align-items: center; gap: 0.4rem;
@@ -401,10 +401,10 @@
   .step-icon { font-size: 0.9rem; }
   .flow-arrow { font-size: 0.75rem; color: #475569; transition: color 0.3s; }
   .flow-arrow.done { color: #22c55e; }
-  .flow-hint { font-size: 0.73rem; color: #94a3b8; margin-top: 0.5rem; }
+  .flow-hint { font-size: 0.73rem; color: #94a3b8; margin-top: 0.5rem; text-align: center; }
 
   /* Main content */
-  main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 2rem 1.25rem 1.25rem; }
+  main { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 1.25rem; }
   .content { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
   /* Panels */
