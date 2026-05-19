@@ -185,7 +185,12 @@
             E-Mail analysieren
           {/if}
         </button>
-        <p class="input-hint">Eingaben werden zur Verarbeitung an Groq (USA) übermittelt. Keine echten E-Mails eingeben.</p>
+        <div class="warn-box">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+          </svg>
+          <span>Eingaben werden zur Verarbeitung an <strong>Groq (USA)</strong> übermittelt und können dort gespeichert werden. Bitte <strong>keine echten oder vertraulichen E-Mails</strong> eingeben.</span>
+        </div>
       </div>
 
       <!-- Result -->
@@ -451,7 +456,13 @@
     border-top-color: #1c1917; border-radius: 50%; animation: spin 0.7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .input-hint { font-size: 0.62rem; color: #64748b; }
+  .warn-box {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 8px; padding: 0.6rem 0.75rem;
+    font-size: 0.75rem; color: #b8900a; line-height: 1.5;
+  }
+  .warn-box strong { color: #d4a820; }
 
   /* Result */
   .tags { display: flex; flex-direction: column; gap: 0.5rem; }
