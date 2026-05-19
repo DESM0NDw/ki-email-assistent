@@ -1,0 +1,159 @@
+[
+  {
+    "id": "CVrZiUXYwaUFgG9n",
+    "name": "KI-E-Mail-Assistent",
+    "nodes": [
+      {
+        "id": "node-1",
+        "name": "Gmail Trigger",
+        "type": "n8n-nodes-base.gmailTrigger",
+        "typeVersion": 1,
+        "position": [200, 300],
+        "parameters": {
+          "pollTimes": { "item": [{ "mode": "everyMinute" }] },
+          "filters": {}
+        }
+      },
+      {
+        "id": "node-2",
+        "name": "Groq API",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4,
+        "position": [460, 300],
+        "parameters": {
+          "method": "POST",
+          "url": "https://api.groq.com/openai/v1/chat/completions",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              { "name": "Authorization", "value": "Bearer DEIN_GROQ_API_KEY" }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "{\"model\":\"llama-3.1-8b-instant\",\"messages\":[{\"role\":\"system\",\"content\":\"Analysiere die E-Mail und antworte mit JSON: {category, priority (Hoch/Mittel/Niedrig), sentiment, summary, reply}\"},{\"role\":\"user\",\"content\":\"Betreff: {{$json.subject}}\\n\\n{{$json.snippet}}\"}]}"
+        }
+      },
+      {
+        "id": "node-3",
+        "name": "JSON parsen",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [720, 300],
+        "parameters": {
+          "jsCode": "const raw = $input.first().json.choices[0].message.content;\nconst clean = raw.replace(/```json\\n?|```/g, '').trim();\nreturn [{ json: JSON.parse(clean) }];"
+        }
+      },
+      {
+        "id": "node-4",
+        "name": "Switch Priorität",
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3,
+        "position": [980, 300],
+        "parameters": {
+          "mode": "rules",
+          "rules": {
+            "rules": [
+              {
+                "outputIndex": 0,
+                "conditions": {
+                  "conditions": [
+                    { "leftValue": "={{ $json.priority }}", "rightValue": "Hoch", "operator": { "type": "string", "operation": "equals" } }
+                  ]
+                }
+              },
+              {
+                "outputIndex": 1,
+                "conditions": {
+                  "conditions": [
+                    { "leftValue": "={{ $json.priority }}", "rightValue": "Mittel", "operator": { "type": "string", "operation": "equals" } }
+                  ]
+                }
+              }
+            ],
+            "fallbackOutput": 2
+          }
+        }
+      },
+      {
+        "id": "node-5",
+        "name": "Slack Alert senden",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3,
+        "position": [1240, 160],
+        "parameters": {
+          "mode": "manual",
+          "fields": {
+            "values": [
+              { "name": "action", "stringValue": "Slack Alert gesendet" },
+              { "name": "channel", "stringValue": "#inbox-alerts" }
+            ]
+          }
+        }
+      },
+      {
+        "id": "node-6",
+        "name": "Gmail Label setzen",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3,
+        "position": [1240, 300],
+        "parameters": {
+          "mode": "manual",
+          "fields": {
+            "values": [
+              { "name": "action", "stringValue": "Gmail Label gesetzt" },
+              { "name": "label", "stringValue": "Mittel-Priorität" }
+            ]
+          }
+        }
+      },
+      {
+        "id": "node-7",
+        "name": "Gmail Archivieren",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3,
+        "position": [1240, 440],
+        "parameters": {
+          "mode": "manual",
+          "fields": {
+            "values": [
+              { "name": "action", "stringValue": "E-Mail archiviert" }
+            ]
+          }
+        }
+      },
+      {
+        "id": "node-8",
+        "name": "Antwort-Entwurf",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3,
+        "position": [1500, 300],
+        "parameters": {
+          "mode": "manual",
+          "fields": {
+            "values": [
+              { "name": "action", "stringValue": "Gmail Entwurf erstellt" },
+              { "name": "reply", "stringValue": "={{ $json.reply }}" }
+            ]
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Gmail Trigger": { "main": [[{ "node": "Groq API", "type": "main", "index": 0 }]] },
+      "Groq API": { "main": [[{ "node": "JSON parsen", "type": "main", "index": 0 }]] },
+      "JSON parsen": { "main": [[{ "node": "Switch Priorität", "type": "main", "index": 0 }]] },
+      "Switch Priorität": {
+        "main": [
+          [{ "node": "Slack Alert senden", "type": "main", "index": 0 }],
+          [{ "node": "Gmail Label setzen", "type": "main", "index": 0 }],
+          [{ "node": "Gmail Archivieren", "type": "main", "index": 0 }]
+        ]
+      },
+      "Slack Alert senden": { "main": [[{ "node": "Antwort-Entwurf", "type": "main", "index": 0 }]] },
+      "Gmail Label setzen": { "main": [[{ "node": "Antwort-Entwurf", "type": "main", "index": 0 }]] },
+      "Gmail Archivieren": { "main": [[{ "node": "Antwort-Entwurf", "type": "main", "index": 0 }]] }
+    },
+    "settings": { "executionOrder": "v1" }
+  }
+]

@@ -243,6 +243,89 @@
       </div>
 
     </div>
+
+    <!-- n8n Workflow Diagram -->
+    <div class="n8n-section">
+      <div class="n8n-head">
+        <span class="n8n-badge">n8n</span>
+        <div>
+          <p class="n8n-title">Echte Automation</p>
+          <p class="n8n-desc">So läuft dieser Prozess als n8n-Workflow für ein echtes Postfach — vollautomatisch, ohne manuelle Eingabe.</p>
+        </div>
+      </div>
+
+      <div class="n8n-diagram">
+        <div class="n8n-node nd-trigger">
+          <span class="nd-icon">📧</span>
+          <div class="nd-text">
+            <span class="nd-type">Gmail Trigger</span>
+            <span class="nd-name">Neue E-Mail</span>
+          </div>
+        </div>
+        <span class="n8n-arr">→</span>
+        <div class="n8n-node">
+          <span class="nd-icon">🤖</span>
+          <div class="nd-text">
+            <span class="nd-type">HTTP Request</span>
+            <span class="nd-name">Groq API</span>
+          </div>
+        </div>
+        <span class="n8n-arr">→</span>
+        <div class="n8n-node">
+          <span class="nd-icon nd-code">&#123;&#125;</span>
+          <div class="nd-text">
+            <span class="nd-type">Code Node</span>
+            <span class="nd-name">JSON parsen</span>
+          </div>
+        </div>
+        <span class="n8n-arr">→</span>
+        <div class="n8n-node nd-switch">
+          <span class="nd-icon">⚡</span>
+          <div class="nd-text">
+            <span class="nd-type">Switch</span>
+            <span class="nd-name">Priorität?</span>
+          </div>
+        </div>
+        <span class="n8n-arr">→</span>
+        <div class="n8n-branch-col">
+          <div class="n8n-node">
+            <span class="nd-icon">🔔</span>
+            <div class="nd-text">
+              <span class="lbl-high">Hoch</span>
+              <span class="nd-name">Slack Alert</span>
+            </div>
+          </div>
+          <div class="n8n-node">
+            <span class="nd-icon">🏷️</span>
+            <div class="nd-text">
+              <span class="lbl-mid">Mittel</span>
+              <span class="nd-name">Label setzen</span>
+            </div>
+          </div>
+          <div class="n8n-node">
+            <span class="nd-icon">📁</span>
+            <div class="nd-text">
+              <span class="lbl-low">Niedrig</span>
+              <span class="nd-name">Archivieren</span>
+            </div>
+          </div>
+        </div>
+        <span class="n8n-arr">→</span>
+        <div class="n8n-node nd-output">
+          <span class="nd-icon">✍️</span>
+          <div class="nd-text">
+            <span class="nd-type">Gmail</span>
+            <span class="nd-name">Antwort-Entwurf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="n8n-divider">
+        <span>Echter n8n Workflow</span>
+      </div>
+      <img src="/n8n-workflow-v2.png" alt="n8n Workflow Screenshot" class="n8n-screenshot" />
+    </div>
+
   </main>
 
   <footer>
@@ -413,6 +496,43 @@
   footer { text-align: center; font-size: 0.68rem; color: #475569; padding: 0.6rem; border-top: 1px solid #243447; }
   footer a { color: #64748b; text-decoration: none; }
   footer a:hover { color: #94a3b8; }
+
+  /* n8n section */
+  .n8n-section {
+    margin-top: 1.5rem;
+    background: #1e2d42; border: 1px solid #243447; border-radius: 14px; padding: 1.25rem;
+  }
+  .n8n-head { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
+  .n8n-badge {
+    font-size: 0.65rem; font-weight: 800; letter-spacing: 0.04em;
+    background: #f97316; color: white; padding: 2px 8px; border-radius: 5px; flex-shrink: 0; margin-top: 2px;
+  }
+  .n8n-title { font-size: 0.88rem; font-weight: 700; color: #f1f5f9; }
+  .n8n-desc { font-size: 0.7rem; color: #64748b; margin-top: 2px; line-height: 1.5; }
+
+  .n8n-diagram { display: flex; align-items: center; justify-content: center; gap: 0.4rem; overflow-x: auto; padding: 0.25rem 0; }
+  .n8n-branch-col { display: flex; flex-direction: column; gap: 0.4rem; }
+  .n8n-arr { font-size: 0.8rem; color: #334155; flex-shrink: 0; }
+  .n8n-vline { width: 1px; height: 1.25rem; background: #334155; margin: 0.1rem 0; }
+  .n8n-node { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; background: #162032; border: 1px solid #2a3d55; border-radius: 9px; padding: 0.4rem 0.7rem; }
+  .nd-trigger { border-color: rgba(249,115,22,0.4); }
+  .nd-switch { border-color: rgba(251,191,36,0.4); }
+  .nd-output { border-color: rgba(34,197,94,0.4); }
+  .nd-icon { font-size: 0.95rem; line-height: 1; }
+  .nd-code { font-size: 0.72rem; font-family: monospace; font-weight: 700; color: #94a3b8; }
+  .nd-text { display: flex; flex-direction: column; gap: 1px; }
+  .nd-type { font-size: 0.58rem; color: #475569; line-height: 1.3; }
+  .nd-name { font-size: 0.72rem; font-weight: 600; color: #e2e8f0; line-height: 1.3; }
+  .lbl-high { font-size: 0.58rem; font-weight: 700; padding: 1px 5px; border-radius: 999px; color: #f87171; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); }
+  .lbl-mid { font-size: 0.58rem; font-weight: 700; padding: 1px 5px; border-radius: 999px; color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); }
+  .lbl-low { font-size: 0.58rem; font-weight: 700; padding: 1px 5px; border-radius: 999px; color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
+
+  .n8n-divider {
+    display: flex; align-items: center; gap: 0.75rem; margin: 1.25rem 0 1rem;
+  }
+  .n8n-divider::before, .n8n-divider::after { content: ''; flex: 1; height: 1px; background: #243447; }
+  .n8n-divider span { font-size: 0.65rem; color: #475569; white-space: nowrap; }
+  .n8n-screenshot { width: 100%; border-radius: 10px; border: 1px solid #243447; }
 
   /* Mobile */
   @media (max-width: 768px) {

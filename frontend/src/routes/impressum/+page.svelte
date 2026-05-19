@@ -17,7 +17,7 @@
         40472 Düsseldorf<br>
         Deutschland
       </p>
-      <p>E-Mail: <a href="mailto:desmond.wong.dev@proton.me">desmond.wong.dev@proton.me</a></p>
+      <p>E-Mail: <a href="mailto:desmond.wong@autonomika.de">desmond.wong@autonomika.de</a></p>
     </section>
 
     <hr>
@@ -36,7 +36,7 @@
 
     <section>
       <h2>Ihre Rechte</h2>
-      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung und Löschung Ihrer personenbezogenen Daten. Kontakt: <a href="mailto:desmond.wong.dev@proton.me">desmond.wong.dev@proton.me</a></p>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung und Löschung Ihrer personenbezogenen Daten. Kontakt: <a href="mailto:desmond.wong@autonomika.de">desmond.wong@autonomika.de</a></p>
       <p>Aufsichtsbehörde: Landesbeauftragte für Datenschutz und Informationsfreiheit NRW (<a href="https://www.ldi.nrw.de" target="_blank" rel="noopener">ldi.nrw.de</a>).</p>
     </section>
 
