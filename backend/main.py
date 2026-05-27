@@ -1,6 +1,9 @@
 import os
-from fastapi import FastAPI
+import time
+from collections import defaultdict
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from groq import Groq
 
@@ -33,6 +36,16 @@ EXAMPLES = [
     },
 ]
 
+RATE_LIMIT = 20
+RATE_WINDOW = 3600
+_requests: dict = defaultdict(list)
+
+
+def get_ip(request: Request) -> str:
+    fwd = request.headers.get("X-Forwarded-For")
+    return fwd.split(",")[0].strip() if fwd else request.client.host
+
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -40,6 +53,19 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    if request.method == "POST":
+        ip = get_ip(request)
+        now = time.time()
+        _requests[ip] = [t for t in _requests[ip] if now - t < RATE_WINDOW]
+        if len(_requests[ip]) >= RATE_LIMIT:
+            return JSONResponse(status_code=429, content={"detail": "Zu viele Anfragen. Bitte später erneut versuchen."})
+        _requests[ip].append(now)
+    return await call_next(request)
+
 
 groq_client = Groq(api_key=GROQ_API_KEY)
 
