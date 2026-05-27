@@ -13,10 +13,10 @@
   let activeStep = $state(-1);
 
   const STEPS = [
-    { icon: '📧', label: 'E-Mail empfangen' },
-    { icon: '🔍', label: 'KI analysiert' },
-    { icon: '🏷️', label: 'Kategorisiert' },
-    { icon: '✍️', label: 'Antwort generiert' },
+    { path: 'M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75', label: 'E-Mail empfangen' },
+    { path: 'm21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z', label: 'KI analysiert' },
+    { path: 'M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z', label: 'Kategorisiert' },
+    { path: 'm16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10', label: 'Antwort generiert' },
   ];
 
   const PRIORITY_COLOR: Record<string, string> = {
@@ -97,7 +97,7 @@
         </div>
         <div>
           <h1>KI-E-Mail-Assistent</h1>
-          <p class="subtitle">E-Mail eingeben &rarr; KI analysiert &rarr; Antwortvorschlag erhalten</p>
+          <p class="subtitle">Eingehende Mails sortiert, priorisiert und mit Antwort-Entwurf versehen</p>
         </div>
       </div>
       <div class="header-right">
@@ -118,7 +118,9 @@
     <div class="flow-steps">
       {#each STEPS as step, i}
         <div class="flow-step {activeStep === i ? 'active' : ''} {activeStep > i ? 'done' : ''}">
-          <span class="step-icon">{step.icon}</span>
+          <svg class="step-icon" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d={step.path} />
+          </svg>
           <span class="step-label">{step.label}</span>
         </div>
         {#if i < STEPS.length - 1}
@@ -261,7 +263,9 @@
 
       <div class="n8n-diagram">
         <div class="n8n-node nd-trigger">
-          <span class="nd-icon">📧</span>
+          <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+          </svg>
           <div class="nd-text">
             <span class="nd-type">Gmail Trigger</span>
             <span class="nd-name">Neue E-Mail</span>
@@ -269,7 +273,9 @@
         </div>
         <span class="n8n-arr">→</span>
         <div class="n8n-node">
-          <span class="nd-icon">🤖</span>
+          <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+          </svg>
           <div class="nd-text">
             <span class="nd-type">HTTP Request</span>
             <span class="nd-name">Groq API</span>
@@ -277,7 +283,9 @@
         </div>
         <span class="n8n-arr">→</span>
         <div class="n8n-node">
-          <span class="nd-icon nd-code">&#123;&#125;</span>
+          <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+          </svg>
           <div class="nd-text">
             <span class="nd-type">Code Node</span>
             <span class="nd-name">JSON parsen</span>
@@ -285,7 +293,9 @@
         </div>
         <span class="n8n-arr">→</span>
         <div class="n8n-node nd-switch">
-          <span class="nd-icon">⚡</span>
+          <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+          </svg>
           <div class="nd-text">
             <span class="nd-type">Switch</span>
             <span class="nd-name">Priorität?</span>
@@ -294,21 +304,27 @@
         <span class="n8n-arr">→</span>
         <div class="n8n-branch-col">
           <div class="n8n-node">
-            <span class="nd-icon">🔔</span>
+            <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+            </svg>
             <div class="nd-text">
               <span class="lbl-high">Hoch</span>
               <span class="nd-name">Slack Alert</span>
             </div>
           </div>
           <div class="n8n-node">
-            <span class="nd-icon">🏷️</span>
+            <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+            </svg>
             <div class="nd-text">
               <span class="lbl-mid">Mittel</span>
               <span class="nd-name">Label setzen</span>
             </div>
           </div>
           <div class="n8n-node">
-            <span class="nd-icon">📁</span>
+            <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+            </svg>
             <div class="nd-text">
               <span class="lbl-low">Niedrig</span>
               <span class="nd-name">Archivieren</span>
@@ -317,7 +333,9 @@
         </div>
         <span class="n8n-arr">→</span>
         <div class="n8n-node nd-output">
-          <span class="nd-icon">✍️</span>
+          <svg class="nd-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          </svg>
           <div class="nd-text">
             <span class="nd-type">Gmail</span>
             <span class="nd-name">Antwort-Entwurf</span>
@@ -335,20 +353,20 @@
 
   <footer>
     Demo von <a href="https://desmond.autonomika.de" target="_blank">Desmond Wong</a>
-    &mdash; Stack: Groq &middot; llama-3.1-8b &middot; SvelteKit
+    &middot; Stack: Groq &middot; llama-3.1-8b &middot; SvelteKit
     &middot; <a href="/impressum">Impressum & Datenschutz</a>
   </footer>
 
 </div>
 
 <style>
-  .wrapper { min-height: 100vh; display: flex; flex-direction: column; background: #162032; }
+  .wrapper { min-height: 100vh; display: flex; flex-direction: column; background: #0c0c0c; }
 
   /* Header */
   header {
     position: sticky; top: 0; z-index: 20;
-    background: rgba(22,32,50,0.97); backdrop-filter: blur(8px);
-    border-bottom: 1px solid #243447;
+    background: rgba(12,12,12,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #1e1e1e;
   }
   .header-inner {
     max-width: 1200px; margin: 0 auto; padding: 0 1.25rem;
@@ -357,7 +375,7 @@
   .header-left { display: flex; align-items: center; gap: 0.75rem; }
   .icon {
     width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
-    background: rgba(251,191,36,0.12); color: #fbbf24;
+    background: rgba(34,211,238,0.1); color: #22d3ee;
     display: flex; align-items: center; justify-content: center;
   }
   h1 { font-size: 0.95rem; font-weight: 700; color: #f1f5f9; }
@@ -366,10 +384,10 @@
   .demo-badge {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
-    color: #fbbf24; background: rgba(251,191,36,0.1);
-    border: 1px solid rgba(251,191,36,0.2); padding: 2px 8px; border-radius: 999px;
+    color: #22d3ee; background: rgba(34,211,238,0.1);
+    border: 1px solid rgba(34,211,238,0.2); padding: 2px 8px; border-radius: 999px;
   }
-  .pulse { width: 5px; height: 5px; border-radius: 50%; background: #fbbf24; animation: pulse 1.5s ease-in-out infinite; }
+  .pulse { width: 5px; height: 5px; border-radius: 50%; background: #22d3ee; animation: pulse 1.5s ease-in-out infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .back-link {
     display: inline-flex; align-items: center; gap: 4px;
@@ -379,7 +397,7 @@
 
   /* Flow bar */
   .flow-bar {
-    background: #1e2d42; border-bottom: 1px solid #243447;
+    background: #111; border-bottom: 1px solid #1e1e1e;
     padding: 0.75rem 1.25rem; display: flex; flex-direction: column; align-items: center;
   }
   .flow-label { font-size: 0.75rem; color: #b0bfcc; margin-bottom: 0.5rem; }
@@ -388,17 +406,16 @@
   }
   .flow-step {
     display: flex; align-items: center; gap: 0.4rem;
-    background: #162032; border: 1px solid #243447;
+    background: #0c0c0c; border: 1px solid #1e1e1e;
     border-radius: 8px; padding: 0.35rem 0.65rem;
     font-size: 0.82rem; color: #b0bfcc;
     transition: all 0.3s;
   }
   .flow-step.active {
-    border-color: #fbbf24; color: #fbbf24; background: rgba(251,191,36,0.06);
-    box-shadow: 0 0 12px rgba(251,191,36,0.15);
+    border-color: #22d3ee; color: #22d3ee; background: rgba(34,211,238,0.06);
   }
   .flow-step.done { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.06); }
-  .step-icon { font-size: 0.9rem; }
+  .step-icon { flex-shrink: 0; }
   .flow-arrow { font-size: 0.75rem; color: #475569; transition: color 0.3s; }
   .flow-arrow.done { color: #22c55e; }
   .flow-hint { font-size: 0.73rem; color: #94a3b8; margin-top: 0.5rem; text-align: center; }
@@ -409,7 +426,7 @@
 
   /* Panels */
   .input-panel, .result-panel {
-    background: #1e2d42; border: 1px solid #243447; border-radius: 14px;
+    background: #111; border: 1px solid #1e1e1e; border-radius: 14px;
     padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
   }
   .panel-header {
@@ -423,37 +440,37 @@
   .examples-label { font-size: 0.75rem; color: #b0bfcc; }
   .example-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .example-chip {
-    font-size: 0.8rem; color: #b0bfcc; background: #162032;
-    border: 1px solid #2a3d55; padding: 0.25rem 0.6rem; border-radius: 999px;
+    font-size: 0.8rem; color: #b0bfcc; background: #0c0c0c;
+    border: 1px solid #252525; padding: 0.25rem 0.6rem; border-radius: 999px;
     cursor: pointer; transition: all 0.15s; text-align: left;
   }
-  .example-chip:hover { background: #263548; color: #f1f5f9; border-color: #fbbf24; }
+  .example-chip:hover { background: #1a1a1a; color: #f1f5f9; border-color: #22d3ee; }
 
   /* Fields */
   .field { display: flex; flex-direction: column; gap: 0.35rem; }
   label { font-size: 0.82rem; color: #c8d8e4; font-weight: 500; }
   input, textarea {
-    background: #162032; border: 1px solid #2a3d55; color: #e2e8f0;
+    background: #0c0c0c; border: 1px solid #252525; color: #e2e8f0;
     border-radius: 10px; padding: 0.55rem 0.85rem; font-size: 0.83rem;
     outline: none; transition: border-color 0.15s; resize: vertical;
     font-family: inherit;
   }
-  input:focus, textarea:focus { border-color: #fbbf24; }
+  input:focus, textarea:focus { border-color: #22d3ee; }
   input::placeholder, textarea::placeholder { color: #475569; }
   input:disabled, textarea:disabled { opacity: 0.5; }
 
   /* Analyze button */
   .analyze-btn {
     display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    background: #fbbf24; color: #1c1917; border: none;
+    background: #22d3ee; color: #000; border: none;
     border-radius: 10px; padding: 0.65rem 1rem; font-size: 0.85rem; font-weight: 600;
     cursor: pointer; transition: background 0.15s;
   }
-  .analyze-btn:hover:not(:disabled) { background: #f59e0b; }
+  .analyze-btn:hover:not(:disabled) { background: #06b6d4; }
   .analyze-btn:disabled { opacity: 0.4; cursor: default; }
   .spinner {
-    width: 14px; height: 14px; border: 2px solid rgba(28,25,23,0.3);
-    border-top-color: #1c1917; border-radius: 50%; animation: spin 0.7s linear infinite;
+    width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
   .warn-box {
@@ -473,7 +490,7 @@
   }
   .category { color: #60a5fa; background: rgba(96,165,250,0.1); border: 1px solid rgba(96,165,250,0.2); }
   .priority-high { color: #f87171; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); }
-  .priority-mid { color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); }
+  .priority-mid { color: #22d3ee; background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); }
   .priority-low { color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
   .sentiment-pos { color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
   .sentiment-neu { color: #94a3b8; background: rgba(148,163,184,0.1); border: 1px solid rgba(148,163,184,0.2); }
@@ -483,15 +500,15 @@
   .result-section h3 { font-size: 0.8rem; font-weight: 600; color: #b0bfcc; text-transform: uppercase; letter-spacing: 0.05em; }
   .result-section p { font-size: 0.92rem; color: #e2eaf2; line-height: 1.6; }
 
-  .reply-section { background: #162032; border: 1px solid #243447; border-radius: 10px; padding: 0.85rem; }
+  .reply-section { background: #0c0c0c; border: 1px solid #1e1e1e; border-radius: 10px; padding: 0.85rem; }
   .reply-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
   .copy-btn {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 0.68rem; color: #475569; background: #1e2d42;
-    border: 1px solid #2a3d55; border-radius: 6px; padding: 2px 8px;
+    font-size: 0.68rem; color: #475569; background: #111;
+    border: 1px solid #252525; border-radius: 6px; padding: 2px 8px;
     cursor: pointer; transition: all 0.15s;
   }
-  .copy-btn:hover { color: #94a3b8; border-color: #3d4f67; }
+  .copy-btn:hover { color: #94a3b8; border-color: #333; }
   .reply-text { font-size: 0.92rem; color: #e2eaf2; line-height: 1.7; white-space: pre-wrap; }
 
   /* Empty state */
@@ -504,14 +521,14 @@
 
   .error { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); color: #f87171; border-radius: 10px; padding: 0.75rem; font-size: 0.83rem; }
 
-  footer { text-align: center; font-size: 0.68rem; color: #475569; padding: 0.6rem; border-top: 1px solid #243447; }
+  footer { text-align: center; font-size: 0.68rem; color: #475569; padding: 0.6rem; border-top: 1px solid #1e1e1e; }
   footer a { color: #64748b; text-decoration: none; }
   footer a:hover { color: #94a3b8; }
 
   /* n8n section */
   .n8n-section {
     margin-top: 1.5rem;
-    background: #1e2d42; border: 1px solid #243447; border-radius: 14px; padding: 1.25rem;
+    background: #111; border: 1px solid #1e1e1e; border-radius: 14px; padding: 1.25rem;
   }
   .n8n-head { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
   .n8n-badge {
@@ -523,27 +540,26 @@
 
   .n8n-diagram { display: flex; align-items: center; justify-content: center; gap: 0.4rem; overflow-x: auto; padding: 0.25rem 0; }
   .n8n-branch-col { display: flex; flex-direction: column; gap: 0.4rem; }
-  .n8n-arr { font-size: 0.8rem; color: #334155; flex-shrink: 0; }
-  .n8n-vline { width: 1px; height: 1.25rem; background: #334155; margin: 0.1rem 0; }
-  .n8n-node { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; background: #162032; border: 1px solid #2a3d55; border-radius: 9px; padding: 0.5rem 0.85rem; }
+  .n8n-arr { font-size: 0.8rem; color: #333; flex-shrink: 0; }
+  .n8n-vline { width: 1px; height: 1.25rem; background: #333; margin: 0.1rem 0; }
+  .n8n-node { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; background: #0c0c0c; border: 1px solid #252525; border-radius: 9px; padding: 0.5rem 0.85rem; }
   .nd-trigger { border-color: rgba(249,115,22,0.4); }
-  .nd-switch { border-color: rgba(251,191,36,0.4); }
+  .nd-switch { border-color: rgba(34,211,238,0.4); }
   .nd-output { border-color: rgba(34,197,94,0.4); }
-  .nd-icon { font-size: 1.1rem; line-height: 1; }
-  .nd-code { font-size: 0.78rem; font-family: monospace; font-weight: 700; color: #94a3b8; }
+  .nd-icon { width: 16px; height: 16px; flex-shrink: 0; color: #94a3b8; }
   .nd-text { display: flex; flex-direction: column; gap: 2px; }
   .nd-type { font-size: 0.68rem; color: #94a3b8; line-height: 1.3; }
   .nd-name { font-size: 0.82rem; font-weight: 600; color: #e2e8f0; line-height: 1.3; }
   .lbl-high { font-size: 0.68rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; color: #f87171; background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); }
-  .lbl-mid { font-size: 0.68rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); }
+  .lbl-mid { font-size: 0.68rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; color: #22d3ee; background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); }
   .lbl-low { font-size: 0.68rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
 
   .n8n-divider {
     display: flex; align-items: center; gap: 0.75rem; margin: 1.25rem 0 1rem;
   }
-  .n8n-divider::before, .n8n-divider::after { content: ''; flex: 1; height: 1px; background: #243447; }
+  .n8n-divider::before, .n8n-divider::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
   .n8n-divider span { font-size: 0.72rem; color: #94a3b8; white-space: nowrap; }
-  .n8n-screenshot { width: 100%; border-radius: 10px; border: 1px solid #243447; }
+  .n8n-screenshot { width: 100%; border-radius: 10px; border: 1px solid #1e1e1e; }
 
   /* Mobile */
   @media (max-width: 768px) {
